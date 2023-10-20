@@ -5,11 +5,19 @@
 
     switch ($_REQUEST["acao"]) {
         case 'cadastrar':
-            
             $Dados = new DadosModel();
             $dados = $_POST;
 
-            $Dados->Insert($dados);
+            $VRF = $Dados->Insert($dados);
+
+            if($VRF){
+                $resps = 'Cadastrado com sucesso';
+            }else{
+                $resps = 'Não foi possível cadastrar';
+            }
+            print "<script>alert('$resps');</script>";
+            print "<script>location.href='?page=novo';</script>";
+
             break;
         default:
             break;

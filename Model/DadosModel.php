@@ -20,10 +20,20 @@
             return $resultQery;
         }
 
-        function Insert($dados){
-            $sql = "INSERT INTO noticia (titulo,descricao) 
-            VALUES ('{$dados["title"]}','{$dados["descricao"]}')";
-            $result = $this->conexao->query($sql);
+        function Insert($dados) {
+            try {
+                $sql = "INSERT INTO noticia (titulo, descricao) 
+                        VALUES ('{$dados["title"]}', '{$dados["descricao"]}')";
+                $result = $this->conexao->query($sql);
+        
+                if ($result) {
+                    return true;
+                    //throw new Exception("Erro ao executar a consulta SQL: " . $this->conexao->errorInfo()[2]);
+                }
+            } catch (PDOException $e) {
+                // Trata exceções do tipo PDOException e as relança como exceções genéricas
+                throw new Exception("Erro ao executar a consulta SQL: " . $e->getMessage());
+            }
         }
 
         function ExcluirMD(){
