@@ -40,16 +40,18 @@
                   <input type="hidden" name="acao" value="cadastrar">
                     <div class="mb-3 input-group input-group-lg">
                       <span class="input-group-text" id="title">Título</span>
-                      <input type="text"  name="title" class="inputs required" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                      <input type="text"  name="title" class="form-control inputs required" required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" oninput="titleValid()">
                       <span class="span-required"></span>
                     </div>
                     <div class="mb-3 form-floating">
-                      <textarea class="inputs required" required="true" placeholder="Leave a comment here" id="descricao" name="descricao" style="height: 100px"></textarea>
+                      <textarea class="form-control inputs required" required placeholder="Leave a comment here" id="descricao" name="descricao" style="height: 100px"></textarea>
                       <label for="descricao">Descrição</label>
+                      <span class="span-required"></span>
                     </div>
                     <div class="mb-3 form-group">
                       <label for="img" class="custom-file-label">Selecione uma imagem:</label>
                       <input type="file" accept=".jpg, .jpeg, .png" class="custom-file-input" id="img" onchange="validaArquivo('img')">
+                      <span class="span-required"></span>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -57,4 +59,21 @@
           </div>
     </div>
 </body>
+<script>
+  const forms = document.getElementById('form1');
+  const campos = document.querySelectorAll('.required');
+  const spans = document.querySelectorAll('.span-required');
+  
+  function setError(index){
+    campos[index].style.border = '2px solid #e63635';
+  }
+
+  function titleValid(){
+    if(campos[0].value.length < 3){
+      setError(0);
+    }else{
+      console.log('Nop');
+    }
+  }
+</script>
 </html>
